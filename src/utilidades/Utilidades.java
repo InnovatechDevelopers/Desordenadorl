@@ -15,4 +15,9 @@ public class Utilidades {
 		SimpleDateFormat sdf = new SimpleDateFormat(formato);
 		return sdf.format(fecha);
 	}
+	
+	public static Date formatoDate(String formato, String fecha) throws Exception{
+		SimpleDateFormat sdf = new SimpleDateFormat(formato);
+		return sdf.parse(fecha);
+	}
 }
