@@ -57,10 +57,15 @@ oracle JDK          19.0
 <p align="justify">
 Se presenta el proyecto desde un repositorio privado de la empresa:
 
-Ejecutable: 
+Ejecutable:
 ```
-out/artifacts/Desordenadorl_jar/Desordenadorl.jar
+Ubicación:
+    out/artifacts/Desordenadorl_jar/Desordenadorl.jar
+Ejecución:
+    java -jar Desordenadorl.jar
 ```
+
+
 Fuentes: 
 ```
 src
