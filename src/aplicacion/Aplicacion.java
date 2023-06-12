@@ -1,18 +1,25 @@
 package aplicacion;
 
-import modelos.*;
+import java.util.ArrayList;
+import java.util.Date;
+
+import modelos.Item;
+import modelos.Stock;
+import modelos.Venta;
 import modelos.clientes.Cliente;
 import utilidades.Persistencia;
 import utilidades.Utilidades;
 import vista.Terminal;
-
-import java.util.ArrayList;
-import java.util.Date;
-
+/**
+ * Clase que controla el flujo del programa y muestra por pantalla, interactuando con el usuario,
+ * la información y gestión de la Tienda de Informática.
+ * @author Grupo 13 - InnovaTech_Solutions
+ *
+ */
 public class Aplicacion {
-	
+
 	private int opcionSalir = 7;
-	
+
 	private Stock stock;
 
 	private String menuPrincipal = "SELECCIONA UNA DE LAS SIGUIENTES OPCIONES\n"
@@ -23,7 +30,7 @@ public class Aplicacion {
 			+ "5. Añadir Productos Nuevos al Stock\n"
 			+ "6. Actualizar Stock.\n"
 			+ "7. Salir.\n";
-	
+
 	private String menuListado = "SELECCIONA UNA DE LAS SIGUIENTES OPCIONES\n"
 			+ "1. Listar familiaProductos.\n"
 			+ "2. Listar Stock Actual.\n"
@@ -95,7 +102,7 @@ public class Aplicacion {
 				Terminal.muestraError(e);
 			}
 	}
-	
+
 	/**
 	 * Método privado para el: "Alta de un nuevo producto".
 	 * Se pretende dar de alta un nuevo producto en la BBDD de familiaProductos de Persistencia (no de
@@ -108,16 +115,23 @@ public class Aplicacion {
 	private String opcion1() throws Exception{
 		String resultadoOperacion = "Resultado de la operación 1";
 		String familia, subfamilia, tipo;
+		Double precio;
 		Terminal.muestraMensaje("Vamos a buscar si el producto está en familiaProductos");
 		familia = Terminal.muestraMensajeRespuesta("Introduce la familia");
 		subfamilia = Terminal.muestraMensajeRespuesta("Introduce la subfamilia");
 		tipo = Terminal.muestraMensajeRespuesta("Introduce el tipo");
-		
-		String idProducto = Persistencia.generaNuevoProducto(familia, subfamilia, tipo);
+		try {
+			precio = Double.parseDouble(Terminal.muestraMensajeRespuesta("Introduce el precio"));
+		}catch (Exception e) {
+			throw new Exception ("Formato de Precio incorrecto");
+		}
+
+
+		String idProducto = Persistencia.generaNuevoProducto(familia, subfamilia, tipo, precio.toString());
 		resultadoOperacion = "Producto correctamente generado con el IdProducto " + idProducto;
 		return resultadoOperacion;
 	}
-	
+
 	/**
 	 * Método privado para la: "Baja de un producto de familiaProductos".
 	 * Se pretende dar de baja un producto de la BBDD de familiaProductos (Persistencia).
@@ -130,21 +144,33 @@ public class Aplicacion {
 	 */
 	private String opcion2() throws Exception{
 		String resultadoOperacion = "Resultado de la operación 2";
-		
+
 		String idProductoEliminar = Terminal.muestraMensajeRespuesta("Introduce el código del producto que deseas eliminar");
 		Persistencia.eliminaProducto(idProductoEliminar);
 		resultadoOperacion = "El producto " + idProductoEliminar + " ha sido eliminado";
 		return resultadoOperacion;
 	}
-	
+
+	/**
+	 * Método privado que gestiona una venta, escogiendo primero al cliente sobre el que venderle
+	 * el producto, posteriormente el/los producto/s que se le desean vender y éstos se encuentren
+	 * en Stock de la tienda y finalmente mostrando por pantalla el resumen de la factura con precios
+	 * totales, fecha y número de factura.
+	 * @return
+	 * @throws Exception
+	 */
 	private String opcion3() throws Exception{
 		String resultadoOperacion = "Resultado de la operación 3";
-		
+
+		//Lista clientes y da a escoger uno de ellos, mostrando un mensaje si éste no tiene firmada la LPD. En tal caso, el cliente tendrá que firmarla.
 		Terminal.muestraMensaje(Persistencia.listarClientes());
 		Cliente cliente = Persistencia.getCliente(Integer.parseInt(Terminal.muestraMensajeRespuesta("Escoje el Código del Cliente (CodCliente)")));
-		
+		if (!cliente.isLpd())
+			Terminal.muestraError(new Exception ("El Cliente no tiene firmada el formulario de Protección de Datos."));
+		cliente.setLpd(true); //El cliente firma la LPD
+
 		String respuesta = "S";
-		ArrayList<Item> items = new ArrayList<Item>();
+		ArrayList<Item> items = new ArrayList<>();
 		Terminal.muestraMensaje(stock.listarStock());
 		while (!respuesta.equalsIgnoreCase("N")) {
 			try {
@@ -157,18 +183,18 @@ public class Aplicacion {
 			}
 			respuesta = Terminal.muestraMensajeRespuesta("¿Deseas introducir otro artículo a la venta? ('N' para NO)");
 		}
-		
+
 		Venta venta = new Venta (items, cliente, new Date());
 		resultadoOperacion = "Se ha producido una venta:"
 				+ venta;
-		
+
 		//Añadimos la Venta a Persistencia.
 		Persistencia.añadirVenta(venta);
-				
+
 		return resultadoOperacion;
 	}
-	
-	
+
+
 	/**
 	 * Método privado para el: "Alta de un nuevo producto al listado de Stock".
 	 * Se pretende dar de alta un producto de el Stock de la tienda. Ante ello, el método ha de
@@ -181,11 +207,11 @@ public class Aplicacion {
 	 */
 	private String opcion5() throws Exception{
 		String resultadoOperacion = "Resultado de la operación 5";
-		
+
 		String idProductoAñadir = Terminal.muestraMensajeRespuesta("Introduce el código del producto del Stock que deseas añadir");
 		if (stock.getRegistro(idProductoAñadir) != null)
 			throw new Exception ("El código del producto introducido ya existe");
-		String numProductosStr = Terminal.muestraMensajeRespuesta("Cuántos productos deseas añadir"); 
+		String numProductosStr = Terminal.muestraMensajeRespuesta("Cuántos productos deseas añadir");
 		try {
 			int numProductos = Integer.parseInt(numProductosStr);
 			stock.añadirStock(idProductoAñadir, numProductos);
@@ -195,9 +221,9 @@ public class Aplicacion {
 		}
 		return resultadoOperacion;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Método privado para la: "Actualización del Stock de un Producto".
 	 * Se pretende actualizar el número de productos que hay de un producto determinado.
@@ -208,10 +234,10 @@ public class Aplicacion {
 	 */
 	private String opcion6() throws Exception{
 		String resultadoOperacion = "Resultado de la operación 6";
-		
+
 		String idProductoActualizar = Terminal.muestraMensajeRespuesta("Introduce el código del producto del Stock que deseas actualizar");
 		Terminal.muestraMensaje("Del producto " + idProductoActualizar + " hay " + stock.getStock(idProductoActualizar) + " unidades");
-		String numProductosStr = Terminal.muestraMensajeRespuesta("Cuántos productos deseas añadir"); 
+		String numProductosStr = Terminal.muestraMensajeRespuesta("Cuántos productos deseas añadir");
 		try {
 			int numProductos = Integer.parseInt(numProductosStr);
 			stock.añadirStock(idProductoActualizar, numProductos);

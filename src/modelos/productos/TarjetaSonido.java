@@ -5,7 +5,7 @@ import modelos.Componente;
 public class TarjetaSonido extends Componente {
 
 	//Atributos Tarjeta de Sonido
-	
+
 	//Constructor
 	public TarjetaSonido(String idProducto) throws Exception{
 		super(idProducto);

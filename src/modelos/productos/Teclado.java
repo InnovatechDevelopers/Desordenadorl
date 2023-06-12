@@ -5,7 +5,7 @@ import modelos.Periferico;
 public class Teclado extends Periferico{
 
 	//Atributos Teclado
-	
+
 	//Constructor
 	public Teclado(String idProducto) throws Exception{
 		super(idProducto);

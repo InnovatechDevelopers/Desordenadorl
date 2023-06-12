@@ -5,7 +5,7 @@ import modelos.Componente;
 public class TarjetaGrafica extends Componente{
 
 	//Atributos Tarjeta Gráfica
-	
+
 	//Constructor
 	public TarjetaGrafica(String idProducto) throws Exception{
 		super(idProducto);

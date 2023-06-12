@@ -2,6 +2,12 @@ package modelos;
 
 import utilidades.Persistencia;
 
+/**
+ * Representa al artículo en venta, que tanto puede el proveedor vender a la tienda, como puede la
+ * tienda, mediante su inclusión en su stock, vender al Cliente.
+ * @author Grupo 13 - InnovaTech_Solutions
+ *
+ */
 public abstract class Producto implements Comparable<Producto>, Cloneable{
 	//Atributos de Productos
 	private String idProducto;
@@ -9,7 +15,7 @@ public abstract class Producto implements Comparable<Producto>, Cloneable{
 	private String subfamilia;
 	private String tipo;
 	private double precio;
-	
+
 	/**
 	 * Para generar un nuevo producto será necesario indicar el idProducto correspondiente
 	 * @param idProducto String del producto que se quiere generar
@@ -69,7 +75,8 @@ public abstract class Producto implements Comparable<Producto>, Cloneable{
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-	
+
+	@Override
 	public Object clone() throws CloneNotSupportedException{
 		return super.clone();
 	}
@@ -79,7 +86,7 @@ public abstract class Producto implements Comparable<Producto>, Cloneable{
 		return this.getClass().getSimpleName() + " [idProducto=" + idProducto + ", familia=" + familia + ", subfamilia=" + subfamilia + ", tipo="
 				+ tipo + " | Precio: " + precio + " €]";
 	}
-	
+
 	@Override
 	public int compareTo (Producto o) {
 		return idProducto.compareTo(o.getIdProducto());

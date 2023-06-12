@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Desordenadorl:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Desordenadorl_jar</output-path>
+    <root id="archive" name="Desordenadorl.jar">
+      <element id="module-output" name="Desordenadorl" />
+    </root>
+  </artifact>
+</component>

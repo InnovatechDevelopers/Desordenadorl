@@ -5,7 +5,7 @@ import modelos.Componente;
 public class PlacaBase extends Componente {
 
 	//Atributos Placa Base
-	
+
 	//Constructor
 	public PlacaBase(String idProducto) throws Exception{
 		super(idProducto);

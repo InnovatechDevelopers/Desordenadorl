@@ -5,7 +5,7 @@ import modelos.Ordenador;
 public class Portatil extends Ordenador {
 
 	//Atributos Portátil
-	
+
 	//Constructor
 	public Portatil(String idProducto) throws Exception{
 		super(idProducto);
