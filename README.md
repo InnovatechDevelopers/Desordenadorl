@@ -8,7 +8,11 @@ Implementación **JAVA** para control de stock de la conocida tienda de Andorra 
 
 ### Abstract
 <p align="justify">
-Gestión de PYMES de venta de productos con un stock máximo estimado de 1.000.000 de productos en total
+Gestión de PYMES de venta de productos con un stock máximo estimado de 1.000.000 de productos en total.
+
+Se plantea el siguiente diagrama a falta de seleccionar una implementación de BD o almacenamiento en lugar de uso de la persistencia
+
+<div style="text-align:center"><img src="docs\diagram.png" ,width=600/></div>
 
 
 
