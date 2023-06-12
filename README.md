@@ -10,7 +10,7 @@ Implementación **JAVA** para control de stock de la conocida tienda de Andorra 
 <p align="justify">
 Gestión de PYMES de venta de productos con un stock máximo estimado de 1.000.000 de productos en total.
 
-Se plantea la siguiente tabla de productos como productos iniciales en stock. Con esta catalogación, dado el acuerdo obtenido con el cliente, se cubre tanto el stock actual como el futuro a corto/medio plazo.
+Se plantea la siguiente tabla de productos como productos iniciales para ser incluidos en el stock. Con esta catalogación, dado el acuerdo obtenido con el cliente, se cubre tanto el stock actual como el futuro a corto/medio plazo.
 
 |     IdProducto    |     Familia        |     Subfamilia              |     Tipo                |
 |-------------------|--------------------|-----------------------------|-------------------------|
