@@ -57,6 +57,16 @@ oracle JDK          19.0
 <p align="justify">
 Se presenta el proyecto desde un repositorio privado de la empresa:
 
-Ejecutable: out/artifacts/Desordenadorl_jar/Desordenadorl.jar
-
-Fuentes: src
+Ejecutable: 
+```
+out/artifacts/Desordenadorl_jar/Desordenadorl.jar
+```
+Fuentes: 
+```
+src
+```
+Javadoc:
+```
+doc
+```
+Las politicas de seguridad del repositorio impiden el link ejecutable a la documentación generada como JavaDoc. No obstante procuramos dicho directorio con el objetivo de que tenga la documentación correspondiente al descargarse el proyecto.
