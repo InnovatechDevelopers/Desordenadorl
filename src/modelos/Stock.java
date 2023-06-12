@@ -1,26 +1,41 @@
 package modelos;
 
-import modelos.productos.*;
-
-
-import utilidades.Persistencia;
-import utilidades.Utilidades;
-
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import modelos.productos.AllInOne;
+import modelos.productos.FuenteAlimentacion;
+import modelos.productos.Impresora;
+import modelos.productos.Monitor;
+import modelos.productos.PlacaBase;
+import modelos.productos.Portatil;
+import modelos.productos.Procesador;
+import modelos.productos.Raton;
+import modelos.productos.Sobremesa;
+import modelos.productos.TarjetaGrafica;
+import modelos.productos.TarjetaSonido;
+import modelos.productos.Teclado;
+import utilidades.Persistencia;
+import utilidades.Utilidades;
+
+/**
+ * Representa al Stock que tiene una Tienda de Informática, cuyos productos son asignados a través
+ * de sus proveedores.
+ * @author Grupo 13 - InnovaTech_Solutions
+ *
+ */
 public class Stock {
 	private Map<Producto, Integer> listaStock;
 	private Date fechaActualizacion;
-	
+
 	public Stock() {
-		this.listaStock = new TreeMap<Producto, Integer>();
+		this.listaStock = new TreeMap<>();
 		this.setFechaActualizacion(new Date());
 	}
-	
+
 	/**
 	 * Por sobrecarga de métodos, en caso de que no se especifique cuántas unidades habrá de aumentarse
 	 * el stock del producto idProducto, éste se tomará como en UNA unidad.
@@ -32,11 +47,11 @@ public class Stock {
 	public void añadirStock (String idProducto) throws Exception{
 		this.añadirStock(idProducto, 1);
 	}
-	
+
 	/**
 	 * Si el producto ya existe en el listado de stock, aumenta el stock del Producto con idProducto
 	 * en tantas unidades como numProductos se especifique. Si el producto no existiera todavía en
-	 * el listado de stock, lo incluye en éste con el número de unidades especificadas en numProductos. 
+	 * el listado de stock, lo incluye en éste con el número de unidades especificadas en numProductos.
 	 * @param idProducto String. idProducto sobre el que queremos actuar.
 	 * @param numProductos int. Número de productos a aumentar en el sock
 	 * @throws Exception. Puede lanzar una excepción en caso de que, bien el idProducto no exista en
@@ -45,7 +60,7 @@ public class Stock {
 	 */
 	public void añadirStock (String idProducto, int numProductos) throws Exception{
 		Entry<Producto, Integer> registro;
-			registro = this.getRegistro(idProducto); 
+			registro = this.getRegistro(idProducto);
 			if (registro != null) //Si el registro existe, actualiza nStock
 				registro.setValue(registro.getValue() + numProductos);
 			else //Si no existe, mete el Producto en Stock y actualiza nStock
@@ -55,7 +70,7 @@ public class Stock {
 					throw new Exception ("El producto " + idProducto + " no existe en familiaProductos");
 		this.setFechaActualizacion(new Date()); //Actualiza al momento actual la última modificación de stock
 	}
-	
+
 
 	/**
 	 * Método que busca el idProducto en el mapa listaStock. Hay que tener en cuenta que el idProducto puede existir en
@@ -77,7 +92,7 @@ public class Stock {
 		}
 		return registroRetorno;
 	}
-	
+
 	/**
 	 * Método privado para generar una instancia del producto deseado especificado mediante idProducto.
 	 * Los datos del objeto serán los relacionados en familiaProductos correspondientes a la subfamilia
@@ -107,7 +122,7 @@ public class Stock {
 			throw new Exception ("No se ha podido generar el Producto con el idProducto " + idProducto);
 		}
 	}
-	
+
 	/**
 	 * Método para listar el stock que hay en tienda.
 	 * @return String. Cadena de caracteres formateada del listado del stock en tienda.
@@ -121,25 +136,25 @@ public class Stock {
 		resultado += "Stock actualizado en fecha: " + Utilidades.formatoFecha("dd/MM/yy HH:mm:ss", this.fechaActualizacion);
 		return resultado;
 	}
-	
+
 	/**
 	 * Método que devuelve el número de unidades que hay en el Stock del producto
 	 * con idProducto.
 	 * @param idProducto String. Identificador del producto del cual queremos saber cuántas unidades
 	 * hay en Stock
 	 * @return int. Devuelve el número de unidades en stock.
-	 * @throws Exception. Lanza una Excepción en caso de que no haya sido localizado el 
+	 * @throws Exception. Lanza una Excepción en caso de que no haya sido localizado el
 	 * idProducto dentro del listado de Stock.
 	 */
 	public int getStock (String idProducto) throws Exception{
 		Entry<Producto, Integer> registro;
-			registro = this.getRegistro(idProducto); 
+			registro = this.getRegistro(idProducto);
 			if (registro != null)
 				return registro.getValue();
 			else
 				throw new Exception ("El producto " + idProducto + " no existe en el Stock");
 	}
-	
+
 	/**
 	 * Proporciona un Item para añadir a la factura. Se saca del Stock (en caso de que esté en él)
 	 * el Producto correspondiente a idProducto. Posteriormente se resta una uniadad al Stock.

@@ -5,7 +5,7 @@ import modelos.Periferico;
 public class Raton extends Periferico{
 
 	//Atributos Ratón
-	
+
 	//Constructor
 	public Raton(String idProducto) throws Exception{
 		super(idProducto);

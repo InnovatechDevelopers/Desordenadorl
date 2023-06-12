@@ -1,13 +1,18 @@
 package modelos.clientes;
 
+/**
+ * Representa a un Cliente Empresa.
+ * @author Grupo 13 - InnovaTech_Solutions
+ *
+ */
 public class Empresa extends Cliente{
-	
+
 	public static String identificador = "CIF";
 
 	private Cliente contacto;
 	private String cif;
 	private double descuento;
-	
+
 	public Empresa(String nombre, String cif, String direccion, String telefono, String email, Cliente contacto) {
 		super(nombre, direccion, telefono, email);
 		this.setCif(cif);
@@ -38,7 +43,7 @@ public class Empresa extends Cliente{
 	public void setDescuento(double descuento) {
 		this.descuento = descuento;
 	}
-	
+
 	@Override
 	public String toString() {
 		return super.toString() + " - Contacto: " + this.contacto.getNombre();

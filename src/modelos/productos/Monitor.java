@@ -5,7 +5,7 @@ import modelos.Periferico;
 public class Monitor extends Periferico {
 
 	//Atributos Monitor
-	
+
 	//Constructor
 	public Monitor(String idProducto) throws Exception{
 		super(idProducto);

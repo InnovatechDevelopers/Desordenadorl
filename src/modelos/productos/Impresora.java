@@ -5,7 +5,7 @@ import modelos.Periferico;
 public class Impresora extends Periferico{
 
 	//Atributos Impresora
-	
+
 	//Constructor
 	public Impresora(String idProducto) throws Exception{
 		super(idProducto);

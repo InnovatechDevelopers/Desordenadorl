@@ -5,7 +5,7 @@ import modelos.Componente;
 public class FuenteAlimentacion extends Componente {
 
 	//Atributos Fuente Alimentación
-	
+
 	//Constructor
 	public FuenteAlimentacion(String idProducto) throws Exception{
 		super(idProducto);

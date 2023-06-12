@@ -5,7 +5,7 @@ import modelos.Ordenador;
 public class AllInOne extends Ordenador{
 
 	//Atributos All-In-One
-	
+
 	//Constructor
 	public AllInOne(String idProducto) throws Exception{
 		super(idProducto);

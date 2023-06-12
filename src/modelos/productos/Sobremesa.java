@@ -5,7 +5,7 @@ import modelos.Ordenador;
 public class Sobremesa extends Ordenador {
 
 	//Atributos Sobremesa
-	
+
 	//Constructor
 	public Sobremesa(String idProducto) throws Exception{
 		super(idProducto);

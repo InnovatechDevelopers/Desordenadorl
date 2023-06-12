@@ -1,44 +1,45 @@
 package utilidades;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
-import modelos.Venta;
-import modelos.clientes.*;
-
-import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+
+import modelos.Venta;
+import modelos.clientes.Cliente;
+import modelos.clientes.Empresa;
+import modelos.clientes.Particular;
 
 
 /**
  * La Clase Persistencia va a simular el acceso a la base de datos donde determinados datos van a
  * tener que estar almacenados para proporcionárselos a la Entidad que los requiera.
- * @author XXXXXXXXX
+ * @author Grupo 13 - InnovaTech_Solutions
  *
  */
 public class Persistencia {
 	//Atributo static y private sin inicializar (se inicializa al cargarlo)
 	//Simula BBDD, a la cual solo se podrán acceder a través de los métodos correspondientes
 	static private Map<String, String[]> familiaProductos;
-	
+
 	//Lista de Clientes (particulares o empresas)
 	static private ArrayList<Cliente> clientes;
-	
+
 	//Lista de Facturas (Ventas)
 	static private ArrayList<Venta> ventas;
-	
+
 	//Caracteres relacionados con la familia del producto:
 	static public char charOrdenador = 'C', charPeriferico = 'P', charComponente = 'I';
 	static public int numOrdenador = 0, numPeriferico = 0, numComponente = 0;
-	
+
 	/**
 	 * Rellena datos en el atributo estático (simulando los datos persistentes en una BBDD)
 	 * @throws Exception Puede distribuir la excepción de que, al generar el idProducto nuevo, no se
 	 * corresponda con las clases definidas en el programa.
 	 */
 	static public void rellenaDatos() throws Exception{
-		familiaProductos = new TreeMap<String, String[]>();
+		familiaProductos = new TreeMap<>();
 		familiaProductos.put(generaNuevoCodigo("Ordenador"), new String[] {"Ordenador", "Sobremesa", "", "5.0"});
 		familiaProductos.put(generaNuevoCodigo("Ordenador"), new String[] {"Ordenador","AllInOne","", "15.0"});
 		familiaProductos.put(generaNuevoCodigo("Ordenador"), new String[] {"Ordenador","Portatil","", "25.0"});
@@ -65,8 +66,8 @@ public class Persistencia {
 		familiaProductos.put(generaNuevoCodigo("Componente"), new String[] {"Componente","Fuente Alimentacion","<650W", "65.0"});
 		familiaProductos.put(generaNuevoCodigo("Componente"), new String[] {"Componente","Fuente Alimentacion",">=650W", "45.0"});
 		familiaProductos.put(generaNuevoCodigo("Componente"), new String[] {"Componente","Tarjeta Sonido","Otras", "25.0"});
-		
-		clientes = new ArrayList<Cliente>();
+
+		clientes = new ArrayList<>();
 		clientes.add(new Particular ("Alfonso de la Rubia", "DniAlfonso", "DireccionAlfonso", "TelAlfonso", "emailAlfonso"));
 		clientes.add(new Particular ("Esther Calzón", "DniEsther", "DireccionEsther", "TelEsther", "emailEsther"));
 		clientes.add(new Particular ("Vicente Alfonso Jimenez", "DniAlfonso", "DireccionAlfonso", "TelAlfonso", "emailAlfonso"));
@@ -74,11 +75,11 @@ public class Persistencia {
 
 		clientes.add(new Empresa("InnovaTech", "CIFInnovaTech", "DireccionInnovaTech", "TelInnovaTech", "emailInnovaTech", Persistencia.getCliente(1)));
 		clientes.add(new Empresa("Desordenador", "CIFDesordenador", "DireccionDesordenador", "TelDesordenador", "emailDesordenador", Persistencia.getCliente(3)));
-		
-		ventas = new ArrayList<Venta>();
+
+		ventas = new ArrayList<>();
 		}
-	
-	
+
+
 	//*******CLIENTES*******//
 	/**
 	 * A través del código de Cliente, el método devuelve el Cliente que corresponde con ese código
@@ -93,7 +94,7 @@ public class Persistencia {
 				return cliente;
 		throw new Exception ("Cliente no encontrado");
 	}
-	
+
 	/**
 	 * Devuelve un listado de Clientes formateado obrantes en Persistencia.
 	 * @return String. Cadena formateada conteniendo un listado de clientes.
@@ -107,7 +108,7 @@ public class Persistencia {
 			throw new Exception ("La lista de Clientes está vacía");
 		return retorno;
 	}
-	
+
 
 	//******VENTAS******//
 	/**
@@ -117,7 +118,7 @@ public class Persistencia {
 	public static void añadirVenta(Venta venta) {
 		ventas.add(venta);
 	}
-	
+
 	/**
 	 * Devuelve un listado de Ventas realizadas obrantes en Persistencia.
 	 * @return String. Cadena formateada conteniendo un listado de ventas.
@@ -131,7 +132,7 @@ public class Persistencia {
 			throw new Exception ("No hay ninguna venta realizada");
 		return retorno;
 	}
-	
+
 	/**
 	 * Devuelve un listado de Ventas realizadas en una fecha concretaobrantes en Persistencia.
 	 * @param fecha String. La fecha ha de tener el formato "dd/MM/yyyy"
@@ -149,7 +150,7 @@ public class Persistencia {
 			throw new Exception ("No hay ninguna venta realizada");
 		return retorno;
 	}
-	
+
 	//*******FAMILIAPRODUCTOS*******//
 	/**
 	 * Genera automáticamente los códigos de producto IdProducto correlativos conforme a la familia
@@ -168,7 +169,7 @@ public class Persistencia {
 				throw new Exception ("Error al generar el código de familia: Familia no reconocida ("+ familia +")");
 		}
 	}
-	
+
 	/**
 	 * Pasándole como parámetro un idProducto, devolverá un array con los datos "familia", "subfamilia" y "tipo"
 	 * @param idProducto String. Identificador del Producto que se desea consultar
@@ -181,8 +182,8 @@ public class Persistencia {
 			throw new Exception ("El producto no ha sido encontrado");
 		return retorno;
 	}
-	
-	
+
+
 	/**
 	 * Genera un nuevo producto cuya familia, subfamilia y tipo se pasan como parámetros. Previamente, el propio método
 	 * comprueba si dicho producto ya existe. En caso de que exista, genera una Excepción informando del suceso.
@@ -193,16 +194,16 @@ public class Persistencia {
 	 * @throws Exception. Puede lanzar una excepción en caso de que no se haya podido generar el nuevo producto informando
 	 * del suceso.
 	 */
-	public static String generaNuevoProducto(String familia, String subfamilia, String tipo) throws Exception{
+	public static String generaNuevoProducto(String familia, String subfamilia, String tipo, String precio) throws Exception{
 		if (!exist(familia, subfamilia, tipo)) {
 			String nuevoIdProducto = generaNuevoCodigo(familia);
-			familiaProductos.put(nuevoIdProducto, new String[] {familia,subfamilia,tipo});
+			familiaProductos.put(nuevoIdProducto, new String[] {familia,subfamilia,tipo, precio});
 			return nuevoIdProducto;
 		}
 		else
 			throw new Exception ("El producto {" + familia + ", " + subfamilia + ", " + tipo + "} ya existe");
 	}
-	
+
 	/**
 	 * Elimina el producto de familiaProductos correspondiente con idProducto pasado como parámetro.
 	 * @param idProducto String. Identificador del producto que se desea eliminar.
@@ -214,7 +215,7 @@ public class Persistencia {
 		else
 			throw new Exception ("El producto " + idProducto + " no ha sido encontrado para eliminarse");
 	}
-	
+
 	/**
 	 * Método privado que comprueba si el producto compuesto por familia, subfamilia y tipo ya existe dentro de familiaProductos.
 	 * @param familia String. Familia del Producto
@@ -235,7 +236,7 @@ public class Persistencia {
 				existe = true;
 		return existe;
 	}
-	
+
 	/**
 	 * Método público que comprueba si el producto con idProducto especificado existe dentro de familiaProductos.
 	 * @param idProducto String. idProducto que se desea buscar
@@ -251,7 +252,7 @@ public class Persistencia {
 				existe = true;
 		return existe;
 	}
-	
+
 	/**
 	 * Devuelve un String con el listado formateado de familiaProductos
 	 * @return String. Listado de familiaProductos ordenados por idProducto.
@@ -262,12 +263,12 @@ public class Persistencia {
 	public static String listarFamiliaProductos() throws Exception{
 		String resultado = "";
 		for (Entry<String, String[]> registro: familiaProductos.entrySet())
-			resultado += registro.getKey() + "\t" + 
+			resultado += registro.getKey() + "\t" +
 					registro.getValue()[0] + " | " +
 					registro.getValue()[1] + " | " +
 					registro.getValue()[2] + " | " +
 					registro.getValue()[3] + " €\n";
 		return resultado;
 	}
-	
+
 }

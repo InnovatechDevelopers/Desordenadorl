@@ -4,7 +4,7 @@ DESORDENADORL
 
 Implementación **JAVA** para control de stock de la conocida tienda de Andorra **Desordenadorl (2023).**
 
-<div style="text-align:center"><img src="docs\terminal.png" ,width=600/></div>
+<div style="text-align:center"><img src="images\terminal.png" ,width=600/></div>
 
 ### General
 <p align="justify">
@@ -55,16 +55,8 @@ oracle JDK          19.0
 
 ### Distribución del proyecto
 <p align="justify">
-Se presenta el proyecto desde un repositorio privado de la empresa para cumplir con los siguientes objetivos:
+Se presenta el proyecto desde un repositorio privado de la empresa:
 
-Portabilidad: 
-El proyecto permite ejecutarse en diferentes plataformas, aunque se ha acordado Windows como plataforma final. El generar un ejecutable puede limitar su portabilidad.
+Ejecutable: out/artifacts/Desordenadorl_jar/Desordenadorl.jar
 
-Flexibilidad: El proyecto es más flexible en términos de configuración y personalización. Esto nos permite ajustar el proyecto según nos determine el cliente.
-
-Mantenimiento/modificación más sencillo: 
-Las actualizaciones (o incluso correcciones) que deben aplicarse al proyecto, tras la evaluación del cliente del mismo.
-
-Facilidad de despliegue: Al no generar un ejecutable, el proyecto puede ser más fácil de desplegar en entornos de servidor o en la nube. En lugar de tener que distribuir y ejecutar un único archivo ejecutable, los componentes del proyecto pueden desplegarse como archivos individuales que se pueden configurar y actualizar de forma independiente.
-
-Uso de almacenamiento: En el punto actual de entrega no se ha determinado aún un almacenamiento definitivo, por lo que el proyecto usa  de persistencia para los datos, estando a la espera de la definición del cliente.
+Fuentes: src
