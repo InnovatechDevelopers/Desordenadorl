@@ -2,12 +2,13 @@ package modelos;
 
 import utilidades.Persistencia;
 
-public abstract class Producto {
+public abstract class Producto implements Comparable<Producto>, Cloneable{
 	//Atributos de Productos
 	private String idProducto;
 	private String familia;
 	private String subfamilia;
 	private String tipo;
+	private double precio;
 	
 	/**
 	 * Para generar un nuevo producto será necesario indicar el idProducto correspondiente
@@ -22,6 +23,11 @@ public abstract class Producto {
 		this.familia = datosProducto[0];
 		this.subfamilia = datosProducto[1];
 		this.tipo = datosProducto[2];
+		try {
+			this.precio = Double.parseDouble(datosProducto[3]);
+		}catch (Exception e) {
+			throw new Exception ("Error a la hora de crear el precio del Producto" + datosProducto[3]);
+		}
 	}
 
 	public String getIdProducto() {
@@ -56,9 +62,26 @@ public abstract class Producto {
 		this.tipo = tipo;
 	}
 
+	public double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+	
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
+	}
+
 	@Override
 	public String toString() {
-		return "Producto [idProducto=" + idProducto + ", familia=" + familia + ", subfamilia=" + subfamilia + ", tipo="
-				+ tipo + "]";
+		return this.getClass().getSimpleName() + " [idProducto=" + idProducto + ", familia=" + familia + ", subfamilia=" + subfamilia + ", tipo="
+				+ tipo + " | Precio: " + precio + " €]";
+	}
+	
+	@Override
+	public int compareTo (Producto o) {
+		return idProducto.compareTo(o.getIdProducto());
 	}
 }

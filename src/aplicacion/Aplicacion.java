@@ -1,8 +1,13 @@
 package aplicacion;
 
+import modelos.*;
+import modelos.clientes.Cliente;
 import utilidades.Persistencia;
+import utilidades.Utilidades;
 import vista.Terminal;
-import utilidades.Stock;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Aplicacion {
 	
@@ -22,7 +27,10 @@ public class Aplicacion {
 	private String menuListado = "SELECCIONA UNA DE LAS SIGUIENTES OPCIONES\n"
 			+ "1. Listar familiaProductos.\n"
 			+ "2. Listar Stock Actual.\n"
-			+ "3. Salir.\n";
+			+ "3. Listar Clientes.\n"
+			+ "4. Listar Ventas.\n"
+			+ "5. Listar Ventas realizadas en una fecha concreta.\n"
+			+ "6. Salir.\n";
 
 	public Aplicacion() {
 		this.stock = new Stock();
@@ -38,7 +46,7 @@ public class Aplicacion {
 					Terminal.muestraMensaje(opcion2());
 					break;
 				case 3: //Realiar una Venta.
-					//opcion3();
+					Terminal.muestraMensaje(opcion3());
 					break;
 				case 4: //Listados.
 					opcionListado = Terminal.muestraMenu(menuListado);
@@ -49,7 +57,23 @@ public class Aplicacion {
 					case 2: //Listado de Stock
 						Terminal.muestraMensaje(stock.listarStock());
 						break;
-					case 3:
+					case 3: //Listado de Clientes
+						Terminal.muestraMensaje(Persistencia.listarClientes());
+						break;
+					case 4: //Listado de Ventas
+						Terminal.muestraMensaje(Persistencia.listarVentas());
+						break;
+					case 5: //Listado de Ventas en una fecha concreta
+						String fechaFormateada = Terminal.muestraMensajeRespuesta("Indica sobre qué fecha quieres buscar las Ventas (dd/MM/yyyy)");
+						//Verificar formato de FECHA
+						try{
+							Utilidades.formatoDate("dd/MM/yyyy", fechaFormateada);
+						}catch (Exception e) {
+							throw new Exception ("Fecha incorrecta o en formato incorrecto");
+						}
+						Terminal.muestraMensaje(Persistencia.listarVentas(fechaFormateada));
+						break;
+					case 6:
 						Terminal.muestraMensaje("Saliendo del menú de listados");
 						break;
 					default:
@@ -112,6 +136,38 @@ public class Aplicacion {
 		resultadoOperacion = "El producto " + idProductoEliminar + " ha sido eliminado";
 		return resultadoOperacion;
 	}
+	
+	private String opcion3() throws Exception{
+		String resultadoOperacion = "Resultado de la operación 3";
+		
+		Terminal.muestraMensaje(Persistencia.listarClientes());
+		Cliente cliente = Persistencia.getCliente(Integer.parseInt(Terminal.muestraMensajeRespuesta("Escoje el Código del Cliente (CodCliente)")));
+		
+		String respuesta = "S";
+		ArrayList<Item> items = new ArrayList<Item>();
+		Terminal.muestraMensaje(stock.listarStock());
+		while (!respuesta.equalsIgnoreCase("N")) {
+			try {
+				String idProductoComprar= Terminal.muestraMensajeRespuesta("Introduce el código del producto que deseas comprar (idProducto)");
+				String descuento = Terminal.muestraMensajeRespuesta("¿Deseas aplicarle algún descuento?");
+					if (descuento.equals("")) descuento = "0.0";
+				items.add(stock.getItem(idProductoComprar, Double.parseDouble(descuento)));
+			}catch (Exception e) {
+				Terminal.muestraError(new Exception ("Error en el producto introducido o en el descuento a aplicar"));
+			}
+			respuesta = Terminal.muestraMensajeRespuesta("¿Deseas introducir otro artículo a la venta? ('N' para NO)");
+		}
+		
+		Venta venta = new Venta (items, cliente, new Date());
+		resultadoOperacion = "Se ha producido una venta:"
+				+ venta;
+		
+		//Añadimos la Venta a Persistencia.
+		Persistencia.añadirVenta(venta);
+				
+		return resultadoOperacion;
+	}
+	
 	
 	/**
 	 * Método privado para el: "Alta de un nuevo producto al listado de Stock".
