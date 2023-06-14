@@ -75,3 +75,9 @@ Javadoc:
 doc
 ```
 Las politicas de seguridad del repositorio impiden el link ejecutable a la documentación generada como JavaDoc. No obstante procuramos dicho directorio con el objetivo de que tenga la documentación correspondiente al descargarse el proyecto.
+
+### UML
+
+Añadimos a la documentación el UML del proyecto para una mayor claridad del mismo.
+
+<div style="text-align:center"><img src="images/Desordenador_v1.1.jpg" /></div>
