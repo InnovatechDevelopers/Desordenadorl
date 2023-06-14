@@ -78,6 +78,6 @@ Las politicas de seguridad del repositorio impiden el link ejecutable a la docum
 
 ### UML
 
-Añadimos a la documentación el UML del proyecto para una mayor claridad del mismo.
+Añadimos a la documentación el UML del proyecto para una mayor claridad del mismo (en el directorio images de el repositorio se puede obtener una versión de mayor calidad en formato jpg).
 
-<div style="text-align:center"><img src="images/Desordenador_v1.1.jpg" /></div>
+<div style="text-align:left"><img src="images/Desordenador_v1.1.png" /></div>
